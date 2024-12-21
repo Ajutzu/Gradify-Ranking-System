@@ -1,0 +1,226 @@
+body {
+    min-height: 100vh;
+    display: flex;
+    background-color: #f5f6fa;
+}
+
+.sidebar {
+    width: 250px;
+    background: white;
+    padding: 1.5rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+}
+
+.sidebar.collapsed {
+    transform: translateX(-250px);
+}
+
+.main-content {
+    flex: 1;
+    transition: margin-left 0.3s ease;
+    padding: 1rem;
+}
+
+
+.main-content.expanded {
+    margin-left: -250px;
+}
+
+.nested-nav .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+}
+
+.nested-nav .nav-item span {
+    flex: 1;
+    min-width: 0; /* This is important for text-truncate to work */
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    color: #666;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+    background-color: var(--pallete-1);
+    color: var(--pallete-4);
+}
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin: 0;
+    padding: 0.75rem;
+}
+
+.classroom-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.classroom-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.classroom-card:hover {
+    transform: translateY(-5px);
+}
+
+.classroom-header {
+    padding: 1rem;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: var(--pallete-3);
+}
+
+.classroom-card:hover .classroom-header {
+    background: var(--pallete-4);
+}
+
+.classroom-body {
+    padding: 1.5rem;
+}
+
+.profile-img {
+    border: 3px solid var(--pallete-1);
+    padding: 3px;
+}
+
+.classroom-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.classroom-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.nested-nav {
+    padding-left: 1rem;
+}
+
+.nested-nav .nav-item {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s;
+}
+
+.nested-nav .nav-item:hover {
+    background-color: var(--pallete-1);
+    color: var(--pallete-4);
+}
+
+.nested-nav .bi {
+    font-size: 0.7rem;
+    margin-right: 0.5rem;
+} 
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 80%;
+        max-width: 240px;
+        transform: translateX(-100%);
+        z-index: 1050;
+        background: white;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1040;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .sidebar:not(.collapsed) {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        width: 100%;
+        padding: 0.5rem;
+    }
+    
+    .top-nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        margin: 0;
+        border-radius: 15px;
+        padding: 0.75rem;
+    }
+    
+    .top-nav .btn {
+        padding: 0.5rem;
+    }
+    
+    .classroom-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+    
+    .classroom-card {
+        margin-bottom: 1rem;
+    }
+    
+    .classroom-header {
+        padding: 1rem;
+    }
+    
+    .classroom-body {
+        padding: 1rem;
+    }
+    
+    .classroom-title {
+        font-size: 1.1rem;
+    }
+    
+    .classroom-subtitle {
+        font-size: 0.9rem;
+    }
+} 
+

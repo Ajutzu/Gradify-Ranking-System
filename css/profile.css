@@ -1,0 +1,82 @@
+.desktop-layout {
+    display: none;
+}
+
+.cover {
+    position: relative;
+    width: 100%;
+    height: 350px;
+    margin-bottom: 80px;
+}
+
+.cover-photo-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+}
+
+.cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-section {
+    position: absolute;
+    bottom: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-photo-container {
+    width: 120px;
+    height: 120px;
+    margin-top: -80px;
+    position: relative;
+}
+
+.profile-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%; 
+    border: 4px solid white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.username-container {
+    flex: 1;
+}
+
+.name {
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .profile-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px;
+    }
+    
+    .profile-photo-container {
+        margin-top: -60px;
+        width: 100px;
+        height: 100px;
+    }
+    
+    .name {
+        font-size: 1.25rem;
+    }
+}

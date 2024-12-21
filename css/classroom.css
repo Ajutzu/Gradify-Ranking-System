@@ -1,0 +1,73 @@
+.class-banner {
+    background-size: cover;
+    background-position: center;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background: var(--pallete-4);
+}
+
+.card {
+    border-radius: 1rem;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.achievement-card {
+    background: linear-gradient(145deg, #ffffff, #f5f7ff);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.achievement-stat {
+    background: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.confetti-bg {
+    background: var(--pallete-4);
+    animation: pulse 2s infinite;
+}
+
+.share-btn {
+    transition: transform 0.2s;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 768px) {
+    .small-text {
+        font-size: 0.9rem;
+    }
+    
+    .smaller-text {
+        font-size: 0.75rem;
+    }
+    
+    .small-avatar {
+        width: 32px !important;
+        height: 32px !important;
+    }
+}

@@ -1,0 +1,121 @@
+.profile-img-2 {
+    border: 3px solid var(--pallete-1);
+    padding: 3px;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+}
+
+.profile-img-2:hover {
+    transform: scale(1.02);
+}
+
+.form-control {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--pallete-3);
+    box-shadow: 0 0 0 0.2rem rgba(0, 128, 128, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.profile-img-container {
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+}
+
+.profile-img-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.profile-img-container.loading::after {
+    display: flex;
+    content: '↻';
+    font-size: 2rem;
+    animation: spin 1s linear infinite;
+}
+
+.cover-photo-container {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.change-cover-btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--white);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.change-cover-btn:hover {
+    background: var(--pallete-3);
+    transform: translateY(-2px);
+}
+
+.brand-btn-outline {
+    background: transparent;
+    border: 1px solid var(--white);
+    color: var(--white);
+}
+
+.brand-btn-outline:hover {
+    background: var(--pallete-3);
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 767.98px) {
+    .border-md-end {
+        border-right: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .border-md-end {
+        border-right: 1px solid #dee2e6 !important;
+    }
+}
+
