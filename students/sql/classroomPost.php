@@ -6,7 +6,7 @@ $stmt = $conn->prepare("SELECT
     cp.rank,
     cp.gpa,
     cp.post_created,
-    u.user_id,
+    u.user_id as top10_id,
     u.username,
     u.profile_picture,
     u.fullname,

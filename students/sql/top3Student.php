@@ -2,7 +2,7 @@
 
 $stmt = $conn->prepare("SELECT 
     cs.classroom_id,
-    cs.user_id,
+    cs.user_id as top3_id,
     u.fullname,
     u.email,
     u.profile_picture,

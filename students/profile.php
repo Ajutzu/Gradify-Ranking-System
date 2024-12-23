@@ -169,7 +169,16 @@
                                             <span>Highest Recorded GPA</span>
                                         </div>
                                     </div>
-                                    <small class="text-muted">GPA: 2.5</small>
+                                    <?php
+
+                                    $highGPA = $conn->prepare("SELECT MAX(student_gpa) as gpa FROM classroom_student WHERE user_id = ?");
+                                    $highGPA->bind_param("i", $_GET['profile']);
+                                    $highGPA->execute();
+                                    $gpa_result = $highGPA->get_result();
+                                    $gpa_row = $gpa_result->fetch_assoc();
+
+                                    ?>
+                                    <small class="text-muted">GPA: <?php echo $gpa_row['gpa']; ?></small>
                                 </div>
                             </div>
 
@@ -180,19 +189,19 @@
                                     <!-- Using PHP loop for ranking list -->
                                     <div class="ranking-list mt-3">
                                         <?php
-                                        $students = [
-                                            ['name' => 'Aj Castillo', 'seed' => 'Felix', 'gpa' => 2.5],
-                                            ['name' => 'AJ Castillo', 'seed' => 'John', 'gpa' => 1.3],
-                                            ['name' => 'AJ Castillo', 'seed' => 'Sarah', 'gpa' => 1.1]
-                                        ];
 
-                                        foreach ($students as $student) {
+                                        $history = $conn->prepare("SELECT * FROM classroom_student WHERE user_id = ?");
+                                        $history->bind_param("i", $_GET['profile']);
+                                        $history->execute();
+                                        $history_result = $history->get_result();
+
+                                        while ($history_row = $history_result->fetch_assoc()) {
                                             echo '<div class="d-flex align-items-center gap-2 mb-2">
-                                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=' . $student['seed'] . '" 
+                                                <img src="../' . $user["profile_picture"] . '" 
                                                     alt="Profile" class="rounded-circle" width="32" height="32">
                                                 <div>
-                                                    <small class="fw-bold d-block">' . $student['name'] . '</small>
-                                                    <small class="text-muted">GPA: ' . $student['gpa'] . '</small>
+                                                    <small class="fw-bold d-block">' . $user['fullname'] . '</small>
+                                                    <small class="text-muted">GPA: ' . $history_row['student_gpa'] . '</small>
                                                 </div>
                                             </div>';
                                         }
@@ -206,16 +215,21 @@
                         <div class="col-md-9">
                             <div class="card">
                                 <?php
-                                $value = True;
-                                if (!$value) { ?>
+                                
+                                $history_post = $conn->prepare("SELECT * FROM classroom_post WHERE user_id = ?");
+                                $history_post->bind_param("i", $_GET['profile']);
+                                $history_post->execute();
+                                $history_post_result = $history_post->get_result();
+
+                                if ($post_row = $history_post_result->fetch_assoc()) { ?>
                                     <!-- Achievement Card -->
                                     <div class="achievement-card p-4">
                                         <div class="row align-items-center">
                                             <!-- Left Column: Profile Image -->
                                             <div class="col-md-4 text-center">
-                                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix"
+                                                <img src="<?php echo "../" . $user['profile_picture']; ?>"
                                                     alt="Profile"
-                                                    class="rounded-circle profile-img  mb-3 mb-md-0"
+                                                    class="rounded-circle profile-img mb-3 mb-md-0"
                                                     width="150"
                                                     height="150">
                                             </div>
@@ -223,10 +237,10 @@
                                             <!-- Right Column: Stats and Message -->
                                             <div class="col-md-8">
                                                 <div class="row">
-                                                    <div class="col-6">
-                                                        <h4 class="mb-3 ms-2">AJ Castillo</h4>
+                                                    <div class="col-10">
+                                                        <h4 class="mb-3 ms-2"><?php echo $user['fullname']; ?></h4>
                                                     </div>
-                                                    <div class="col-6 text-end">
+                                                    <div class="col-2 text-end">
                                                         <button class="btn share-btn"
                                                             onclick="shareToFB()"
                                                             data-bs-toggle="tooltip"
@@ -238,11 +252,11 @@
                                                 </div>
                                                 <div class="d-flex gap-4 mb-3">
                                                     <div class="achievement-stat">
-                                                        <h3 class="mb-0">2.5</h3>
+                                                        <h3 class="mb-0"><?php echo $post_row['gpa'];?></h3>
                                                         <small class="text-muted">GPA</small>
                                                     </div>
                                                     <div class="achievement-stat">
-                                                        <h3 class="mb-0"><i class="bi bi-trophy-fill">1</i></h3>
+                                                        <h3 class="mb-0"><i class="bi bi-trophy-fill"></i><?php echo $post_row['rank'];?></h3>
                                                         <small class="text-muted">Rank</small>
                                                     </div>
                                                 </div>
@@ -251,7 +265,7 @@
                                                 <div class="celebration-message">
                                                     <div class="confetti-bg p-3 rounded-4">
                                                         <h5 class="text-white mb-2">Congratulations!</h5>
-                                                        <p class="mb-0 text-white">Your excellence placed you in the Top 10 of your class!</p>
+                                                        <p class="mb-0 text-white"><?php echo $post_row['description'];?></p>
                                                     </div>
                                                 </div>
 

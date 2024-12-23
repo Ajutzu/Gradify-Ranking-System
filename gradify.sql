@@ -31,7 +31,6 @@ CREATE TABLE classroom_post (
 CREATE TABLE classroom_table (
     classroom_id INT AUTO_INCREMENT PRIMARY KEY,
     classroom_name VARCHAR(255) NOT NULL,
-    classroom_password VARCHAR(255) NOT NULL,
     classroom_host INT,
     classroom_code VARCHAR(255) NOT NULL UNIQUE,
     classroom_banner VARCHAR(255) DEFAULT 'upload/classroom/default.png',

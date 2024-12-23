@@ -122,6 +122,14 @@ body {
   background: var(--pallete-4);
 }
 
+.profile a {
+  text-decoration: none;
+}
+
+.profile a:hover {
+  text-decoration: underline;
+}
+
 /* For Firefox */
 * {
   scrollbar-width: thin;

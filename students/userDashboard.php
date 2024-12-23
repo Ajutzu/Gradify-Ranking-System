@@ -66,8 +66,7 @@
                                                    joined_user.username AS joined_username,
                                                    joined_user.fullname AS joined_fullname,
                                                    joined_user.email AS joined_email,
-                                                   joined_user.profile_picture AS joined_profile_picture,
-                                                   COUNT(cs.user_id) AS student_count
+                                                   joined_user.profile_picture AS joined_profile_picture
                                                FROM 
                                                    classroom_table ct
                                                INNER JOIN 
@@ -164,7 +163,18 @@
                                     <span class="badge <?php echo $classroom['classroom_active'] ? 'bg-success' : 'bg-danger'; ?>">
                                         <?php echo $classroom['classroom_active'] ? 'Active' : 'Inactive'; ?>
                                     </span>
-                                    <small class="text-muted">Students: <?php echo $classroom['student_count']; ?></small>
+
+                                    <?php
+
+                                    $studentCount = $conn->prepare("SELECT COUNT(user_id) as studentCount FROM classroom_student WHERE classroom_id = ?");
+                                    $studentCount->bind_param('i', $classroom['classroom_id']);
+                                    $studentCount->execute();
+                                    $student_result = $studentCount->get_result();
+                                    $studentCount = $student_result->fetch_assoc();
+                                    
+                                    ?>
+
+                                    <small class="text-muted">Students: <?php echo $studentCount['studentCount']; ?></small>
 
                                 </div>
                                 <p class="text-muted">Current GPA: <?php if ($classroom['student_gpa'] == null) {
@@ -193,3 +203,5 @@
 </body>
 
 </html>
+
+<!-- URE-056 -->

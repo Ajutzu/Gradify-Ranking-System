@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content rounded-4">
             <div class="modal-body p-4">
-                <form>
+                <form action="backend/joinClassroom.php" method="POST">
                     <!-- Header -->
                     <h4 class="modal-title mb-4" id="joinClassroomModalLabel">Join class</h4>
 
@@ -25,7 +25,8 @@
                             class="form-control"
                             id="classCode"
                             placeholder="Enter class code"
-                            maxlength="7">
+                            maxlength="7"
+                            name="class_code">
                         <small class="text-muted">Ask your teacher for the class code, then enter it here.</small>
                     </div>
 

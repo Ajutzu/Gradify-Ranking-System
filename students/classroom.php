@@ -151,7 +151,7 @@
             </div>
         </div>
 
-        <div class="container mt-4">
+        <div class="profile container mt-4">
             <!-- Class Header Banner -->
             <div class="class-banner rounded-4 p-4 mb-4 text-white position-relative">
                 <h2>Ranking - <?php echo $row['classroom_name'] ?></h2>
@@ -208,7 +208,7 @@
                                                 <img src="../' . $student['profile_picture'] . '"
                                                     alt="Profile" class="rounded-circle" width="32" height="32">
                                                 <div>
-                                                    <small class="fw-bold d-block">' . $student['fullname'] . '</small>
+                                                    <a href="profile.php?profile=' . $student["top3_id"] . '" class="text-black"><small class="fw-bold d-block">' . $student['fullname'] . '</small></a>
                                                     <small class="text-muted">GPA: ' . $student['student_gpa'] . '</small>
                                                 </div>
                                             </div>';
@@ -223,7 +223,7 @@
                         <div class="col-md-9">
                             <div class="card">
                                 <?php
-                                
+
                                 include 'sql/classroomPost.php';
 
                                 if ($top10 = $post->fetch_assoc()) { ?>
@@ -232,7 +232,7 @@
                                         <div class="row align-items-center">
                                             <!-- Left Column: Profile Image -->
                                             <div class="col-md-4 text-center">
-                                                <img src="../<?php echo $top10['profile_picture'];?>"
+                                                <img src="../<?php echo $top10['profile_picture']; ?>"
                                                     alt="Profile"
                                                     class="rounded-circle profile-img  mb-3 mb-md-0"
                                                     width="150"
@@ -242,12 +242,14 @@
                                             <!-- Right Column: Stats and Message -->
                                             <div class="col-md-8">
                                                 <div class="row">
-                                                    <div class="col-6">
-                                                        <h4 class="mb-3 ms-2"><?php echo $top10['fullname'];?></h4>
+                                                    <div class="col-10">
+                                                        <a href="profile.php?profile=<?php echo $top10['top10_id']; ?>" class="text-black">
+                                                            <h4 class="mb-3 ms-2"><?php echo $top10['fullname']; ?></h4>
+                                                        </a>
                                                     </div>
-                                                    <div class="col-6 text-end">
+                                                    <div class="col-2 text-end">
                                                         <button class="btn share-btn"
-                                                            onclick="shareToFB()"
+                                                            id = "shareBtn"
                                                             data-bs-toggle="tooltip"
                                                             data-bs-placement="top"
                                                             title="Share your achievement">
@@ -257,11 +259,11 @@
                                                 </div>
                                                 <div class="d-flex gap-4 mb-3">
                                                     <div class="achievement-stat">
-                                                        <h3 class="mb-0"><?php echo $top10['gpa'];?></h3>
+                                                        <h3 class="mb-0"><?php echo $top10['gpa']; ?></h3>
                                                         <small class="text-muted">GPA</small>
                                                     </div>
                                                     <div class="achievement-stat">
-                                                        <h3 class="mb-0"><i class="bi bi-trophy-fill me-2"></i><?php echo $top10['rank'];?></h3>
+                                                        <h3 class="mb-0"><i class="bi bi-trophy-fill me-2"></i><?php echo $top10['rank']; ?></h3>
                                                         <small class="text-muted">Rank</small>
                                                     </div>
                                                 </div>
@@ -270,7 +272,7 @@
                                                 <div class="celebration-message">
                                                     <div class="confetti-bg p-3 rounded-4">
                                                         <h5 class="text-white mb-2">Congratulations!</h5>
-                                                        <p class="mb-0 text-white"><?php echo $top10['description'];?></p>
+                                                        <p class="mb-0 text-white"><?php echo $top10['description']; ?></p>
                                                     </div>
                                                 </div>
 
@@ -284,7 +286,7 @@
                                                 <img src="../images/classroom.svg" alt="Stream" class="img-fluid" style="max-width: 200px;">
                                             </div>
                                             <div class="col-md-8 text-md-start text-center">
-                                                <h5>This is where you'll see Updates</h5>
+                                                <h5>This is where you' ll see Updates</h5>
                                                 <p class="text-muted">Use the stream to view top 10 Students</p>
                                             </div>
                                         </div>
@@ -330,11 +332,20 @@
                                         <span class="fw-bold small-text ms-2">' . $student['rank'] . '</span>
                                         <img src="../' . $student['profile_picture'] . '"
                                             alt="Profile" class="rounded-circle small-avatar" width="48" height="48">
-                                        <div>
-                                            <h6 class="mb-0 small-text">' . $student['fullname'] . '</h6>
+                                        <div class="flex-grow-1">
+                                            <a href="profile.php?profile=' . $student["user_id"] . '" class="text-black">
+                                                <h6 class="mb-0 small-text">' . $student['fullname'] . '</h6>
+                                            </a>
                                             <small class="text-muted smaller-text">GPA: ' . $student['student_gpa'] . '</small>
                                         </div>
-                                    </div>';
+                                            <button class="btn share-btn"
+                                                id = "secondShare"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="Share your achievement">
+                                                <i class="bi bi-share"></i>
+                                            </button>
+                                        </div>';
                                 }
                                 ?>
                             </div>
