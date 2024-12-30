@@ -14,7 +14,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/loginSystem.css">
-    
+
     <!-- JavaScript -->
     <script src="../../js/script.js" defer></script>
 
@@ -40,7 +40,7 @@
                 <div class="login-form mt-sm-5" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="300">
                     <h2 class="text-center mb-4 fw-bold">
                         <img src="../../images/ico.svg" alt="wave" class="welcome-wave img-fluid" style="width: 40px">
-                        Forgot Your Password?
+                        Forgot Password?
                     </h2>
                     <p class="text-center text-muted mb-4">Enter Your Email and We Will Send You a Link to Reset Your Password</p>
                     <form action="" method="POST">
@@ -52,8 +52,8 @@
                                 <input type="email" class="form-control border-start-0" name="email" placeholder="Enter Your Email" required>
                             </div>
                         </div>
-                        <div class="text-center">
-                            <div class="g-recaptcha mb-4 d-inline-block" data-sitekey="6LdGiUsqAAAAAB7_dNNbqhcLQIS-Z1sQuw13QzG9"></div>
+                        <div class="text-center mb-3">
+                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4O7nyrpbSbhrj2" data-theme="light" data-language="en"></div>
                         </div>
                         <button type="submit" class="brand-btn mb-4">
                             <i class="bi bi-box-arrow-in-right"></i>

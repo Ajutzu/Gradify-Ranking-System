@@ -130,12 +130,10 @@ body {
   text-decoration: underline;
 }
 
-/* For Firefox */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--pallete-3) #f5f5f5;
 }
-
 
 @media (max-width: 768px) {
    .brand-btn {

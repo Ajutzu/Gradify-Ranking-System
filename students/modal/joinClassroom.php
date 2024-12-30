@@ -11,10 +11,10 @@
 
                     <!-- Current User Info -->
                     <div class="d-flex align-items-center gap-3 mb-4">
-                        <img src="<?php echo '../' . $_SESSION['profile_picture'] ?>" alt="Profile" class="rounded-circle" width="40" height="40">
+                        <img src="<?php echo '../' . $user['profile_picture'] ?>" alt="Profile" class="rounded-circle" width="40" height="40">
                         <div>
-                            <p class="mb-0"><?php echo $_SESSION['fullname'] ?></p>
-                            <small class="text-muted"><?php echo $_SESSION['email'] ?></small>
+                            <p class="mb-0"><?php echo $user['fullname'] ?></p>
+                            <small class="text-muted"><?php echo $user['email'] ?></small>
                         </div>
                     </div>
 

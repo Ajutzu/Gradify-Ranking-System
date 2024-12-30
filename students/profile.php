@@ -6,17 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Gradify</title>
 
-    <?php
-
-    include '../config/cdn.php';
-
-    $stmt = $conn->prepare('SELECT * FROM users_table WHERE user_id = ?');
-    $stmt->bind_param('i', $_GET['profile']);
-    $stmt->execute();
-    $row = $stmt->get_result();
-    $user = $row->fetch_assoc();
-
-    ?>
+    <?php include '../config/cdn.php'; ?>
+    <?php include 'sql/fetchProfile.php'; ?>
+    <?php include '../security/session_management.php'; ?>
 
     <!-- Website Icon -->
     <link rel="icon" href="../images/ico.svg">
@@ -45,10 +37,10 @@
             </div>
             <!-- User Profile Section -->
             <div class="text-center mt-4 mb-3">
-                <img src="<?php echo '../' . $_SESSION["profile_picture"] ?>" alt="Profile"
+                <img src="<?php echo '../' . $user["profile_picture"] ?>" alt="Profile"
                     class="rounded-circle profile-img mb-2" width="80" height="80">
-                <h6 class="mb-1"><?php echo $_SESSION["fullname"] ?></h6>
-                <small class="text-muted"><?php echo $_SESSION["user_type"] ?></small>
+                <h6 class="mb-1"><?php echo $user["fullname"] ?></h6>
+                <small class="text-muted"><?php echo $user["user_type"] ?></small>
             </div>
         </div>
 
@@ -113,7 +105,7 @@
                 <i class="bi bi-gear"></i>
                 Settings
             </a>
-            <a href="../index.php" class="nav-item text-danger mt-2">
+            <a href="../auth/backend/logout.php" class="nav-item text-danger mt-2">
                 <i class="bi bi-box-arrow-left text-danger"></i>
                 Logout
             </a>

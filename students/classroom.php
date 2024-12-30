@@ -7,6 +7,8 @@
     <title>Dashboard | Gradify</title>
 
     <?php include '../config/cdn.php'; ?>
+    <?php include '../security/session_management.php'; ?>
+    <?php include 'sql/fetchUser.php'; ?>
 
     <!-- Website Icon -->
     <link rel="icon" href="../images/ico.svg">
@@ -15,6 +17,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/classroom.css">
     <link rel="stylesheet" href="../css/userDashboard.css">
+    <link rel="stylesheet" href="../css/sweetalert.css">
 
     <!-- JS -->
     <script src="../js/userDashboard.js" defer></script>
@@ -26,7 +29,7 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="d-flex flex-column align-items-center gap-2 mb-4">
+       <div class="d-flex flex-column align-items-center gap-2 mb-4">
             <button class="btn-close sidebar-close d-md-none position-absolute top-0 end-0 m-2 pt-2" aria-label="Close"></button>
 
             <div class="d-flex align-items-center gap-2">
@@ -35,10 +38,10 @@
             </div>
             <!-- User Profile Section -->
             <div class="text-center mt-4 mb-3">
-                <img src="<?php echo '../' . $_SESSION["profile_picture"] ?>" alt="Profile"
+                <img src="<?php echo '../' . $user["profile_picture"] ?>" alt="Profile"
                     class="rounded-circle profile-img mb-2" width="80" height="80">
-                <h6 class="mb-1"><?php echo $_SESSION["fullname"] ?></h6>
-                <small class="text-muted"><?php echo $_SESSION["user_type"] ?></small>
+                <h6 class="mb-1"><?php echo $user["fullname"] ?></h6>
+                <small class="text-muted"><?php echo $user["user_type"] ?></small>
             </div>
         </div>
 
@@ -103,7 +106,7 @@
                 <i class="bi bi-gear"></i>
                 Settings
             </a>
-            <a href="../index.php" class="nav-item text-danger mt-2">
+            <a href="../auth/backend/logout.php" class="nav-item text-danger mt-2">
                 <i class="bi bi-box-arrow-left text-danger"></i>
                 Logout
             </a>
@@ -203,13 +206,13 @@
 
                                         include 'sql/top3Student.php';
 
-                                        while ($student = $top3->fetch_assoc()) {
+                                        while ($top_student = $top3->fetch_assoc()) {
                                             echo '<div class="d-flex align-items-center gap-2 mb-2">
-                                                <img src="../' . $student['profile_picture'] . '"
+                                                <img src="../' . $top_student['profile_picture'] . '"
                                                     alt="Profile" class="rounded-circle" width="32" height="32">
                                                 <div>
-                                                    <a href="profile.php?profile=' . $student["top3_id"] . '" class="text-black"><small class="fw-bold d-block">' . $student['fullname'] . '</small></a>
-                                                    <small class="text-muted">GPA: ' . $student['student_gpa'] . '</small>
+                                                    <a href="profile.php?profile=' . $top_student["top3_id"] . '" class="text-black"><small class="fw-bold d-block">' . $top_student['fullname'] . '</small></a>
+                                                    <small class="text-muted">GPA: ' . $top_student['student_gpa'] . '</small>
                                                 </div>
                                             </div>';
                                         }
@@ -339,7 +342,7 @@
                                             <small class="text-muted smaller-text">GPA: ' . $student['student_gpa'] . '</small>
                                         </div>
                                             <button class="btn share-btn"
-                                                id = "secondShare"
+                                                data-classroom-id="' . $_GET['id'] . '"
                                                 data-bs-toggle="tooltip"
                                                 data-bs-placement="top"
                                                 title="Share your achievement">

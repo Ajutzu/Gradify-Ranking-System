@@ -1,69 +1,37 @@
-const shareDataMain = {
-    title: "Gradify Leaderboard",
-    text: "🎉 Check out the top 10 GPA rankings in Gradify! 🌟",
-    url: "https://your-school-website.com/gradify-leaderboard",
-};
-
-const shareDataSecondary = {
-    title: "Congratiolations",
-    text: `🎉 Congrationalis 🌟`,
-    url: "https://your-school-website.com/gradify-leaderboard", 
-}
-
-let shareBtn = document.getElementById('shareBtn');
-let secondShareBtn = document.getElementById('secondShare');
-
-shareBtn.addEventListener('click', async () => {
-    if (navigator.share) {
-        try {
-            await navigator.share(shareDataMain);
-            Swal.fire({
-                icon: 'success',
-                title: 'Shared successfully!',
-                text: 'Your leaderboard has been shared.',
-            });
-        } catch (err) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops!',
-                text: `Error sharing: ${err.message}`,
-            });
+document.querySelectorAll('.share-btn').forEach(button => {
+    button.addEventListener("click", function () {
+        const classroom = this.getAttribute('data-classroom-id');
+        const url = `http://localhost:3000/guest/guest.php?id=${classroom}`;
+        
+        if (navigator.share) {
+            navigator.share({
+                text: "Check out this classroom leaderboard",
+                url: url,
+                title: "GPA Ranking"
+            }).catch(error => console.error("Sharing failed", error));
+        } else {
+            navigator.clipboard.writeText(url).then(() => {
+                alert("URL copied to clipboard!");
+            }).catch(error => console.error("Clipboard write failed", error));
         }
-    } else {
-        // Fallback: Copy to clipboard
-        const fallbackText = `${shareDataMain.text}\n\nView it here: ${shareDataMain.url}`;
-        try {
-            await navigator.clipboard.writeText(fallbackText);
-            Swal.fire({
-                icon: 'success',
-                title: 'Copied to Clipboard!',
-                text: 'Share it manually on your favorite platform.',
-            });
-        } catch (err) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops!',
-                text: `Failed to copy: ${err.message}`,
-            });
-        }
-    }
+    });
 });
 
-secondShareBtn.addEventListener('click', async () => {
-    const fallbackText = `${shareDataSecondary.text}\n\nView it here: ${shareDataSecondary.url}`;
-    // Fallback: Copy to clipboard
-    try {
-        await navigator.clipboard.writeText(fallbackText);
+document.addEventListener("DOMContentLoaded", function() {
+    var params = new URLSearchParams(window.location.search);
+    var value = params.get('output');
+
+    if (value == 'success') {
         Swal.fire({
             icon: 'success',
-            title: 'Copied to Clipboard!',
-            text: 'Share the leaderboard text manually.',
+            title: 'GPA Calculated!',
+            html: '<div class="text-center">You have successfully calculate your GPA.</div>',
         });
-    } catch (err) {
+    } else if (value == 'error') {
         Swal.fire({
             icon: 'error',
-            title: 'Oops!',
-            text: `Failed to copy: ${err.message}`,
+            title: 'Something Went Wrong',
+            html: '<div class="text-center">An error occurred while processing your request. Please try again later.</div>',
         });
     }
 });

@@ -7,6 +7,8 @@
     <title>Dashboard | Gradify</title>
 
     <?php include '../config/cdn.php'; ?>
+    <?php include 'sql/fetchUser.php'; ?>
+    <?php include '../security/session_management.php'; ?>
 
     <!-- Website Icon -->
     <link rel="icon" href="../images/ico.svg">
@@ -37,10 +39,10 @@
             </div>
             <!-- User Profile Section -->
             <div class="text-center mt-4 mb-3">
-                <img src="<?php echo '../' . $_SESSION["profile_picture"] ?>" alt="Profile"
+                <img src="<?php echo '../' . $user["profile_picture"] ?>" alt="Profile"
                     class="rounded-circle profile-img mb-2" width="80" height="80">
-                <h6 class="mb-1"><?php echo $_SESSION["fullname"] ?></h6>
-                <small class="text-muted"><?php echo $_SESSION["user_type"] ?></small>
+                <h6 class="mb-1"><?php echo $user["fullname"] ?></h6>
+                <small class="text-muted"><?php echo $user["user_type"] ?></small>
             </div>
         </div>
 
@@ -82,7 +84,7 @@
                                                WHERE 
                                                    cs.user_id = ?;
                                                ");
-                    $stmt->bind_param('i', $_SESSION['user_id']);
+                    $stmt->bind_param('i', $user['user_id']);
                     $stmt->execute();
                     $result = $stmt->get_result();
 
@@ -97,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            <a href="profile.php?profile=<?php echo $_SESSION['user_id']; ?>" class="nav-item mt-2">
+            <a href="profile.php?profile=<?php echo $user['user_id']; ?>" class="nav-item mt-2">
                 <i class="bi bi-person"></i>
                 Profile
             </a>
@@ -105,7 +107,7 @@
                 <i class="bi bi-gear"></i>
                 Settings
             </a>
-            <a href="../index.php" class="nav-item text-danger mt-2">
+            <a href="../auth/backend/logout.php" class="nav-item text-danger mt-2">
                 <i class="bi bi-box-arrow-left text-danger"></i>
                 Logout
             </a>
@@ -132,74 +134,65 @@
         <div class="container mt-4">
             <!-- Profile Card -->
             <div class="card">
-                <div class="cover-photo-container mb-4">
-                    <img src="<?php echo '../' . $_SESSION["profile_cover"] ?>" alt="Cover Photo" class="cover-img" id="coverPhotoPreview">
-                    <button class="btn brand-btn-outline change-cover-btn" onclick="document.getElementById('coverPhoto').click()">
+                <div class="cover-photo-container mb-4" style="border-radius: 5px;">
+                    <img src="<?php echo '../' . $user["profile_cover"] ?>" alt="Cover Photo" class="cover-img" id="coverPhotoPreview">
+                    <button type="button" class="btn brand-btn-outline change-cover-btn" onclick="document.getElementById('coverPhoto').click()">
                         <i class="bi bi-camera-fill"></i> Change Cover
                     </button>
-                    <input type="file" id="coverPhoto" name="cover_photo" class="d-none" accept="image/*" onchange="previewCoverPhoto(event)">
                 </div>
                 <div class="card-body p-4">
                     <div class="row">
                         <!-- Left Column - Profile Picture -->
                         <div class="col-md-4 text-center border-md-end">
                             <div class="profile-img-container">
-                                <img src="<?php echo '../' . $_SESSION["profile_picture"] ?>"
-                                    alt="Profile"
-                                    class="profile-img-2 mb-3"
-                                    width="200"
-                                    height="200">
+                                <img src="<?php echo '../' . $user["profile_picture"] ?>" alt="Profile" class="profile-img-2 mb-3" width="200" height="200">
                             </div>
                             <div class="mt-3">
-                                <button class="btn brand-btn mb-2 w-100" onclick="document.getElementById('profilePicture').click()">
+                                <button type="button" class="btn brand-btn mb-2 w-100" onclick="document.getElementById('profilePicture').click()">
                                     <i class="bi bi-image me-2"></i>Change Profile Picture
                                 </button>
-                                <input type="file" id="profilePicture" name="profile_picture" class="d-none" accept="image/*">
-                                <small class="text-muted d-block mb-3">Joined: <?php echo date("F j, Y", strtotime($_SESSION["date_created"])); ?>
-                                </small>
+                                <small class="text-muted d-block mb-3">Joined: <?php echo date("F j, Y", strtotime($user["date_created"])); ?></small>
                             </div>
                         </div>
 
                         <!-- Right Column - Profile Details -->
                         <div class="col-md-8">
-                            <form action="../auth/update_profile.php" method="POST">
+                            <form action="../upload/backend/updateProfile.php" method="POST" enctype="multipart/form-data">
                                 <div class="row g-3">
+                                    <!-- Hidden File Inputs -->
+                                    <input type="file" id="coverPhoto" name="cover_photo" class="d-none" accept="image/*" onchange="previewCoverPhoto(event)">
+                                    <input type="file" id="profilePicture" name="profile_picture" class="d-none" accept="image/*">
+
+                                    <!-- Form Fields -->
                                     <div class="col-12">
                                         <label class="form-label">Username:</label>
-                                        <input type="text" class="form-control" name="username" placeholder="<?php echo $_SESSION['username']; ?>" required>
+                                        <input type="text" class="form-control" name="username" placeholder="<?php echo $user['username']; ?>">
                                     </div>
-
                                     <div class="col-12">
                                         <label class="form-label">Full Name:</label>
-                                        <input type="text" class="form-control" name="fullname" placeholder="<?php echo $_SESSION['fullname']; ?>" required>
+                                        <input type="text" class="form-control" name="fullname" placeholder="<?php echo $user['fullname']; ?>">
                                     </div>
-
                                     <div class="col-12">
                                         <label class="form-label">Email:</label>
-                                        <input type="email" class="form-control" name="email" placeholder="<?php echo $_SESSION['email']; ?>" required>
+                                        <input type="email" class="form-control" name="email" placeholder="<?php echo $user['email']; ?>">
                                     </div>
-
                                     <div class="col-12">
                                         <label class="form-label">Gender:</label>
                                         <div class="d-flex gap-3">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="gender" id="male" value="Male"
-                                                    <?php echo ($_SESSION['gender'] == 'Male') ? 'checked' : ''; ?> required>
+                                                <input class="form-check-input" type="radio" name="gender" id="male" value="Male" <?php echo ($user['gender'] == 'Male') ? 'checked' : ''; ?>>
                                                 <label class="form-check-label" for="male">Male</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="gender" id="female" value="Female"
-                                                    <?php echo ($_SESSION['gender'] == 'Female') ? 'checked' : ''; ?>>
+                                                <input class="form-check-input" type="radio" name="gender" id="female" value="Female" <?php echo ($user['gender'] == 'Female') ? 'checked' : ''; ?>>
                                                 <label class="form-check-label" for="female">Female</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="gender" id="other" value="Other"
-                                                    <?php echo ($_SESSION['gender'] == 'Other') ? 'checked' : ''; ?>>
+                                                <input class="form-check-input" type="radio" name="gender" id="other" value="Other" <?php echo ($user['gender'] == 'Other') ? 'checked' : ''; ?>>
                                                 <label class="form-check-label" for="other">Other</label>
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-12">
                                         <label class="form-label">Change Password:</label>
                                         <div class="input-group">
@@ -209,7 +202,6 @@
                                             </span>
                                         </div>
                                     </div>
-
                                     <div class="col-12">
                                         <button type="submit" class="btn brand-btn">
                                             <i class="bi bi-check-circle me-2"></i>Save Changes
@@ -221,7 +213,9 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
     </div>
 
 </body>

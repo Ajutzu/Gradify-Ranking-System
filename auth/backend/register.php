@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param('ssssss', $username, $fullname, $email, $hashed_password, $gender, $user_type);
 
     if ($stmt->execute()) {
-        header('Location: ../../onboarding/onboarding.php?answer=success');
+        header('Location: ../../students/userDashboard.php?output=welcome');
     } else {
-        header('Location: ../../students/register.php?error=insert_failed');
+        header('Location: ../register.php?output=error');
     }
 
     $stmt->close();

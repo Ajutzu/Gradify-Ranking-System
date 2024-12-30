@@ -1,6 +1,7 @@
 .swal2-popup {
     border-radius: 15px !important;
     padding: 2rem !important;
+    background-color: var(--white);
 }
 
 .swal2-title {

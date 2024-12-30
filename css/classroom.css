@@ -32,7 +32,6 @@
 
 .confetti-bg {
     background: var(--pallete-4);
-    animation: pulse 2s infinite;
 }
 
 .share-btn {
@@ -41,20 +40,6 @@
 
 .share-btn:hover {
     transform: translateY(-2px);
-}
-
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.02);
-    }
-
-    100% {
-        transform: scale(1);
-    }
 }
 
 @media (max-width: 768px) {

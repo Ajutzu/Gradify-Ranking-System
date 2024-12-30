@@ -1,0 +1,97 @@
+.ad-section-style {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} 
+
+.animated-title {
+    background: linear-gradient(90deg, var(--pallete-5), var(--pallete-3), var(--pallete-1));
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-move 3s infinite;
+}
+
+.rank-color {
+    color: var(pa);
+}
+
+#adSection {
+    display: none; 
+    opacity: 0;    
+    transition: opacity 0.5s ease-in-out;
+    transform: translateX(-100%); 
+    transition: transform 0.5s ease-out, opacity 0.5s ease-in-out;
+}
+
+#adSection.slide-in {
+    transform: translateX(0); 
+    opacity: 1; 
+}
+
+
+@keyframes gradient-move {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .animated-title {
+        font-size: 1.5rem;
+    }
+
+    .d-flex {
+        flex-wrap: wrap;
+    }
+
+    .d-flex img {
+        margin-top: 4px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .d-flex h6 {
+        margin-top: 4px;
+        font-size: 0.9rem;
+    }
+
+    .d-flex small {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .profile {
+        height: 100px !important;
+            width: 100px !important;
+    }
+
+    .d-flex {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .d-flex img {
+        margin: 0 auto 10px;
+    }
+
+    .ms-auto {
+        margin-top: 10px;
+    }
+}

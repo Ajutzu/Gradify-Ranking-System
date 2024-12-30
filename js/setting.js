@@ -42,3 +42,22 @@ function previewCoverPhoto(event) {
     }
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    var params = new URLSearchParams(window.location.search);
+    var value = params.get('output');
+
+    if (value == 'update_success') {
+        Swal.fire({
+            icon: 'success',
+            title: 'Updated Successfully!',
+            html: '<div class="text-center">You have successfully update your profile.</div>',
+        });
+    } else if (value == 'update_error') {
+        Swal.fire({
+            icon: 'error',
+            title: 'Something Went Wrong',
+            html: '<div class="text-center">An error occurred while processing your request. Please try again later.</div>',
+        });
+    }
+});
+

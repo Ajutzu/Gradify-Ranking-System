@@ -14,9 +14,11 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/loginSystem.css">
+    <link rel="stylesheet" href="../../css/sweetalert.css">
 
     <!-- JavaScript -->
     <script src="../../js/script.js" defer></script>
+    <script src="../../js/auth.js" defer></script>
 
 </head>
 
@@ -130,8 +132,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center">
-                                <div class="g-recaptcha mb-4 d-inline-block" data-sitekey="6LdGiUsqAAAAAB7_dNNbqhcLQIS-Z1sQuw13QzG9"></div>
+                            <div class="text-center mb-3">
+                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4O7nyrpbSbhrj2" data-theme="light" data-language="en"></div>
                             </div>
                             <div class="d-flex gap-2">
                                 <button type="button" class="brand-btn mb-4 d-flex align-items-center gap-2"

@@ -9,18 +9,27 @@
     <?php include 'config/cdn.php'; ?>
 
     <!-- Website Icon -->
-    <link rel="icon" href="../images/ico.svg">
+    <link rel="icon" href="images/ico.svg">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/loginSystem.css">
+    <link rel="stylesheet" href="css/sweetalert.css">
 
     <!-- JavaScript -->
-    <script src="../js/script.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/auth.js" defer></script>
 
 </head>
 
 <body>
+
+    <?php
+    if (isset($_SESSION['user_id'])) {
+        header("Location: students/userDashboard.php"); 
+        exit(); 
+    }
+    ?>
 
     <div class="container-fluid vh-100">
         <div class="row h-100">
@@ -39,7 +48,7 @@
                 <div class="login-form mt-sm-5" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="300">
                     <h2 class="text-center mb-4 fw-bold">
                         <img src="images/ico.svg" alt="wave" class="welcome-wave img-fluid" style="width: 40px">
-                        Hey There, Welcome Back!
+                        Welcome Back!
                     </h2>
                     <p class="text-center text-muted mb-4">Join Classroom, Input Your Grades, and Check Your Rank</p>
                     <form action="auth/backend/login.php" method="POST">
@@ -69,8 +78,8 @@
                                 Forgot Password?
                             </a>
                         </div>
-                        <div class="text-center">
-                            <div class="g-recaptcha mb-4 d-inline-block" data-sitekey="6LdGiUsqAAAAAB7_dNNbqhcLQIS-Z1sQuw13QzG9"></div>
+                        <div class="text-center mb-3">
+                            <div class="cf-turnstile" data-sitekey="0x4AAAAAAA4O7nyrpbSbhrj2" data-theme="light" data-language="en"></div>
                         </div>
                         <button type="submit" class="brand-btn mb-4">
                             <i class="bi bi-box-arrow-in-right"></i>

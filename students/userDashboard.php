@@ -7,6 +7,8 @@
     <title>Dashboard | Gradify</title>
 
     <?php include '../config/cdn.php'; ?>
+    <?php include 'sql/fetchUser.php'; ?>
+    <?php include '../security/session_management.php'; ?>
 
     <!-- Website Icon -->
     <link rel="icon" href="../images/ico.svg">
@@ -33,10 +35,10 @@
             </div>
             <!-- User Profile Section -->
             <div class="text-center mt-4 mb-3">
-                <img src="<?php echo '../' . $_SESSION["profile_picture"] ?>" alt="Profile"
+                <img src="<?php echo '../' . $user["profile_picture"] ?>" alt="Profile"
                     class="rounded-circle profile-img mb-2" width="80" height="80">
-                <h6 class="mb-1"><?php echo $_SESSION["fullname"] ?></h6>
-                <small class="text-muted"><?php echo $_SESSION["user_type"] ?></small>
+                <h6 class="mb-1"><?php echo $user["fullname"] ?></h6>
+                <small class="text-muted"><?php echo $user["user_type"] ?></small>
             </div>
         </div>
 
@@ -105,7 +107,7 @@
                 <i class="bi bi-gear"></i>
                 Settings
             </a>
-            <a href="../index.php" class="nav-item text-danger mt-2">
+            <a href="../auth/backend/logout.php" class="nav-item text-danger mt-2">
                 <i class="bi bi-box-arrow-left text-danger"></i>
                 Logout
             </a>
@@ -128,7 +130,7 @@
             </div>
         </div>
 
-        <div class="container-fluid mt-4">
+        <div class="container-fluid mt-3">
 
             <?php if ($result->num_rows == 0) { ?>
                 <div class="card-body py-5 text-center">
@@ -156,7 +158,7 @@
                         <div class="classroom-card">
                             <div class="classroom-header">
                                 <h3 class="classroom-title"><?php echo $classroom['classroom_name']; ?></h3>
-                                <p class="classroom-subtitle">Current Rank: <?php echo $classroom['student_gpa']; ?></p>
+                                <p class="classroom-subtitle">Created: <?php echo date('M d, Y', strtotime($classroom['classroom_created'])); ?></p>
                             </div>
                             <div class="classroom-body">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -177,11 +179,7 @@
                                     <small class="text-muted">Students: <?php echo $studentCount['studentCount']; ?></small>
 
                                 </div>
-                                <p class="text-muted">Current GPA: <?php if ($classroom['student_gpa'] == null) {
-                                                                        echo '0';
-                                                                    } else {
-                                                                        echo $classroom['student_gpa'];
-                                                                    }; ?></p>
+
                             </div>
                             <div class="classroom-details p-3 border-top">
                                 <div class="d-flex align-items-center gap-2">
